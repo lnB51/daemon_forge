@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
+use crate::{User, Group}; // Required for UNIX
 use std::io::Write; 
 use std::fmt; 
 use crate::stdio::Stdio;

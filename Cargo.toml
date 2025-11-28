@@ -1,6 +1,6 @@
 [package]
 name = "daemon_forge"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2024"
 authors = ["Nicolás Núñez <nicon@duck.com>"]
 description = "A robust, cross-platform library for daemonizing Rust applications."

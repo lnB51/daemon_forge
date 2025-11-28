@@ -1,7 +1,9 @@
 //! # DaemonForge
 //!
-//! **DaemonForge** is a modern, cross-platform library for creating system daemons (background services) in Rust.
+//! **DaemonForge** is a cross-platform library for creating system daemons (background services) in Rust.
 //! It abstracts away the low-level complexities of operating system process management, providing a safe, idiomatic, and ergonomic builder API.
+//! 
+//! This crate is suitable for learning and experimentation, but not recommended for serious or production projects.
 //!
 //! ## Key Features
 //!
