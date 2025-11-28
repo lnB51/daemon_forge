@@ -31,16 +31,31 @@ use daemon_forge::ForgeDaemon;
 use std::fs::File;
 
 fn main() {
-    let stdout = File::create("/tmp/daemon.out").unwrap();
-    let stderr = File::create("/tmp/daemon.err").unwrap();
+    let pwd = env::current_dir().unwrap();
+    let log_path = pwd.join("log.log");
+    let err_path = pwd.join("error.err");
+    let pid_path = pwd.join("pid.pid");
+
+    // (Optional) We open them in append mode so we dont erase the history
+    let stdout_file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(&log_path)
+        .expect("Couldn't open stdout");
+
+    let stderr_file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(&err_path)
+        .expect("Couldn't open stderr");
 
     let daemon = ForgeDaemon::new()
-        .pid_file("/tmp/test.pid")
-        .working_directory("/tmp")
+        .pid_file(&pid_path)
+        .working_directory(&pwd)
         .user("www-data") // Unix specific: drop privileges
         .group("www-data")
-        .stdout(stdout)
-        .stderr(stderr)
+        .stdout(stdout_file)
+        .stderr(stderr_file)
         .start();
 
     match daemon {
@@ -59,16 +74,30 @@ use daemon_forge::ForgeDaemon;
 use std::fs::File;
 
 fn main() {
-    // Use absolute paths on Windows for safety
-    let stdout = File::create("C:\\Logs\\service.out").unwrap();
-    let stderr = File::create("C:\\Logs\\service.err").unwrap();
+    let pwd = env::current_dir().unwrap();
+    let log_path = pwd.join("log.log");
+    let err_path = pwd.join("error.err");
+    let pid_path = pwd.join("pid.pid");
+
+    // (Optional) We open them in append mode so we dont erase the history
+    let stdout_file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(&log_path)
+        .expect("Couldn't open stdout");
+
+    let stderr_file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(&err_path)
+        .expect("Couldn't open stderr");
 
     let daemon = ForgeDaemon::new()
         .name("MyUniqueService") // Creates "Global\DaemonForge_MyUniqueService" Mutex
-        .pid_file("C:\\Logs\\service.pid")
-        .working_directory("C:\\Logs")
-        .stdout(stdout)
-        .stderr(stderr)
+        .pid_file(&pid_path)
+        .working_directory(&pwd)
+        .stdout(stdout_file)
+        .stderr(stderr_file)
         .start();
 
     match daemon {
