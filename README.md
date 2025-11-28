@@ -12,7 +12,7 @@ This crate is suitable for learning and experimentation, but not recommended for
 
 * **True Cross-Platform Support**:
     * **Unix/Linux**: Implements the canonical daemonization routine (`double-fork`, `setsid`, `umask`, and signal handling).
-    * **Windows**: Uses native "Detached Processes" and manages creation flags for true background execution without a console window.
+    * **Windows**: Uses native "Detached Processes" and manages creation flags for true background execution without a console window (NOT a Windows Service).
 * **Locking Mechanism**:
     * Automatically prevents multiple instances of the same service from running simultaneously.
     * Utilizes `flock` (Unix) and **Global Named Mutexes** (Windows) for reliable exclusion.
